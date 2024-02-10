@@ -8,14 +8,13 @@ using namespace std;
 const int PORT = 8080;
 
 void handleClient(int clientSocket) {
-    char buffer[1024] = {0};
-    read(clientSocket, buffer, 1024);
+    char buffer[512] = {0};
+    read(clientSocket, buffer, 512);
     cout << "Request: " << buffer << endl;
 
     // Simple HTTP response
     string httpResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE html><html><body><h1>Hello, World!</h1></body></html>\r\n";
-    write(clientSocket, httpResponse.c_str(), httpResponse.size());
-}
+    write(clientSocket, httpResponse.c_str(), httpResponse.size());}
 
 
 
@@ -55,7 +54,6 @@ int main() {
             perror("accept");
             exit(EXIT_FAILURE);
         }
-
         handleClient(newSocket);
         close(newSocket);
     }
